@@ -1,0 +1,142 @@
+Chapter 5 - Function for the master: closures and scopes
+=======================================================
+-Closures are a side effect of how scopes work in JS
+
+5.1 - Understanding closures
+---------------------------
+-A closure allows a function to access and manipulate variables that are external
+to that function
+-Scope refers to the visibility of identifiers in certain parts of a program
+
+-closure create a safety bubble of the function and the variables in scope at the
+point of the function definition, so that the function has all it needs to
+execute
+
+-Each function that access information via closure has a "ball and chain" attached
+to it, carrying this information around
+
+5.2 - Putting closures to work
+------------------------------
+
+5.2.1 - Mimicking private variables
+-----------------------------------
+-Private variables - properties of an object that are hidden from outside parties
+-JS doesn't have private variables
+-Using closure we can emulate private variables
+-See code(P. 95)
+
+5.2.2 - Using closures with callbacks
+-------------------------------------
+
+5.3 - Tracking code execution with execution context
+----------------------------------------------------
+-There are two main types of JS code:
+1. global code
+2. function code
+
+When our code is being executed by the JS engine, each statement is executed in
+a certain execution context
+
+-There are two types of execution context:
+1. global execution context
+2. function execution context
+
+-There's only one global execution context, created when JS program starts
+executing, whereas a new function execution context is created on each function
+invocation
+
+-JS is based on single-threaded execution model: only one piece of code can be
+executed at a time
+
+-Every time a function is invoked, the current execution context has to be stopped
+and a new function execution context has to be created. After the function perform its
+task, its function execution context has to be discarded
+
+-A stack is a fundamental data structure which you can put new items only to the top
+and can take existing items only from the top
+
+5.4 - Keeping track of identifiers with lexical environments
+-------------------------------------------------------------
+-A lexical environment is an internal JS engine construct used to keep track of the
+mapping from identifiers to specific variables.
+
+-Lexical environment are an internal implementation of the JS scoping mechanism
+and people often colloquially refer to them as scopes
+
+5.4.1 - Code nesting
+--------------------
+
+5.4.2 - Code nesting and lexical environment
+--------------------------------------------
+-Lexical environment should keep track of:
+1. local variables
+2. function declarations
+3. function parameters
+4. outer(parent) lexical environment
+
+-If an identifier can't be found in the current environment, the outer environment
+is searched
+
+
+5.5 - Understanding types of JS varaibles
+-----------------------------------------
+-Three keywords for defining variables: var, let, const
+
+-They're different in two aspects:
+1. mutabilityd
+2. their relationship toward the lexical environment
+
+5.5.1 - Variable mutability
+---------------------------
+-All variables defined with const are immutable, their value can be set only once
+-let and var value can change as many times as necessary
+
+-With const variable we can't assign a completely new value, but we can modify
+the current one
+
+5.5.2 - Variable definition keywords and lexical environments
+------------------------------------------------------------
+-Keyword are always registered in the closest function or global lexical environment
+without paying any attention to blocks
+
+-let and var define variables in the closest lexical environment (which can be
+a block scope)
+
+5.5.3 - Registering identifiers within lexical environment
+------------------------------------------------------
+-The execution of JS code occurs in two phases
+
+1. The first phase is activated whenever a new lexical environment is created,
+the code isn't executed but the JS engine visits and registers all declared
+variables and functions within the current lexical environment
+2. The second phase, JS execution, starts after the first phase has been accomplished
+
+-If we create a variable with the same name as our function declaration, it will
+override the declaration
+
+5.6 - Exploring how closures work
+---------------------------------
+
+5.6.1 Revisiting mimicking private variables with closures
+----------------------------------------------------------
+-Every time we invoke a constructor function, we create a new lexical environment, which
+keeps track variables local to the constructor
+
+
+5.6.2 Private variables caveat
+-----------------------------
+-The fact that we can assign properties created on one object to another object means that
+there aren't any private object in JS, but we can use closures created by object method to have
+a good enough alternative
+
+5.6.3 Revisiting the closures and callbacks example
+---------------------------------------------------
+
+
+5.7 Summary
+-----------
+-Closures allow a function to access all variables that are in scope when the function itself
+was defined
+
+-We can mimic private object variables by closing over constructor variables through method
+closure

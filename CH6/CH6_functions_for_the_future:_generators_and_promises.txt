@@ -1,0 +1,60 @@
+Chapter 6 - Functions for the future: generators and promises
+=============================================================
+-Generators a special type of function, whereas a standard function produces at most
+ a single value, generators produce multiple values on per request basis while
+ suspending their execution between these requests
+
+-Generators are often considered an almost weird or fringe language feature
+not often used by the average programmer
+
+-Promises are a built-in type of object that help you work with asynchronous code.
+
+-Promise is a placeholder for a value that we don't have yet but will at some later point
+
+6.1 - Making our async code elegant with generators and promises
+---------------------------------------------------------------
+
+
+6.2 - Working with generator functions
+---------------------------------------
+-A generator is a function that generates a sequence of values, but not all at once
+as a standard value would, but on a per request basis.
+
+-Creating a generator function is simple: we append an asterisk (*) after the function
+keyword. This enables us to use the yield keyword within the body of the generator
+
+-Calling a generator doesn't execute the generator function; instead it creates an object
+called an iterator
+
+6.2.1 - Controlling the generator through the iterator object
+-------------------------------------------------------------
+
+-One of the fundamental thing that the iterator object exposes is the next method
+
+-As a response to the next method call, the iterator execute its code until it reaches
+yield keyword that produces an intermediate result
+
+-By using the yield* operator on an interator, we yield to another generator
+
+6.2.2 - Using generators
+------------------------
+-Using generator to create unique id - See code(P. 134)
+
+-Using generators to traverse the DOM - See code(P. 135)
+
+6.2.3 - Communicating with a generator
+--------------------------------------
+-In addition to providing data when first invoking the generator, we can send
+data into a generator by passing arguments to the next method
+
+6.2.4 - Exploring generators under the hood
+------------------------------------------
+-Calling a generator does not execute it
+
+-States of generator
+1. Suspended start - When the generator created, it starts from this state, none
+of the generator's code is executed
+2. Executing - The state in which the code of the generator is executed.
+3. Suspended yield -
+4. Completed - If during execution the generator either runs into a return statement
+or runs out of code to execute, the generator move into this state

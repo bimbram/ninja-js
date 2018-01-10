@@ -1,0 +1,87 @@
+Chapter 4 - Functions for the journeyman: understanding function invocation
+===========================================================================
+-the 'this' parameter represents the function context, the object on which our
+function is invoked
+-the arguments parameter represents all arguments that are passed in through
+a function call
+
+4.1 - Using implicit function parameters
+----------------------------------------
+-function invocation are usually passed two implicit parameters: arguments and this
+
+4.1.1 - The arguments parameter
+------------------------------
+-the arguments parameter is not an array, but an array-like construct (we can't
+use array methods on the arguments parameter )
+
+-in non-strict mode, arguments parameter can be an alias to our defined parameter
+
+-in strict mode, they're different things
+
+4.1.2 - The this parameter: introducing the function context
+-------------------------------------------------------------
+-the this parameter refers to an object that's associated with the function invocation
+
+
+4.2 - Invoking functions
+------------------------
+-We can invoke a function in four ways, each with its own nuances:
+1. As a function - skulk()
+2. As a method - ninja.skulk()
+3. As a constructor - new Ninja()
+4. via the function's apply or call methods - skulk.call(ninja), skulk.apply(ninja)
+
+
+4.2.1 - Invocation as a function
+--------------------------------
+-We say that a function is invoked "as a function" to distinguish it from the other
+invocation mechanism: methods, constructors, and apply/call
+-When invoked in this manner, the 'this' value is
+1. undefined in strict mode
+2. the global object in non-strict mode
+
+4.2.2 - Invocation as a method
+-------------------------------
+-When we invoke a function as a method of an object, that object becomes the function
+context and is available within the function via the this parameter
+
+4.2.3 - Invocation as a constructor
+-----------------------------------
+-To invoke a function as a constructor, we precede the function invocation
+with the new keyword
+
+-function constructor and constructor function are two different things
+
+-Calling a function with the new keyword triggers the following steps:
+1. a new empty object is created
+2. this object is passed to the constructor as the this parameter, and thus
+becomes the constructor's function context
+3. the newly constructed object is returned as the new operator's value
+
+-if a constructor function has a return value that is not an object, it will not
+effect a creation of a new object
+-if a constructor function has a return value of an object, it will return that object
+
+
+4.2.4 - Invocation with the apply and call methods
+--------------------------------------------------
+-JavaScript provides a means for us to invoke a function and to explicitly specify
+any object we want as the function context. We do this through the use of one of two
+methods that exist for every function: apply and call
+
+-The only difference between apply and call is how the arguments are supplied
+
+
+4.3 - Fixing the problem of function contexts
+---------------------------------------------
+
+4.3.1 - Using arrow functions to get around function contexts
+-------------------------------------------------------------
+-Arrow functions don't have their own this value. Instead, they remember the value
+of the this parameter at the time of their definition
+
+4.3.2 - Using the bind method
+-----------------------------
+-The bind method creates a new function. This function has the same body, but
+its context is always bound to a certain object, regardless of the way we invoke
+it

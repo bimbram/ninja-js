@@ -1,0 +1,124 @@
+Chapter 3 - First-class functions for the novice: definitions and arguments
+===========================================================================
+-Really understanding functions in JS is the single most important weapon
+you can yield
+-JS functions are first-class object/first-class citizens. They coexist with, and
+can be treated like any other JS object
+
+
+3.1 - What's with the functional difference?
+--------------------------------------------
+-Unlike in many other programming languages, in JS, we can do with functions almost
+the exact same things as we can in objects
+
+
+3.1.1 - Functions as first-class objects
+----------------------------------------
+-We say that functions are first-class objects, which can also be
+1. created via literals
+2. Assigned to variables, array entries, and properties of other objects
+3. Passed as arguments to other functions
+4. Returned as values from functions
+5. Possess properties that can be dynamically created and assigned
+
+-Functions are objects with an additional, special capability of being invokable
+
+-Functional programming is a style of programming that's focused on solving problems
+by composing functions instead of specifying of steps as in imperative programming
+
+
+3.1.2 - Callback functions
+---------------------------
+-Whenever we set up a function to be called at a later time, whether by the browser
+in the event-handling phase or by other code, we're setting up a callback
+
+3.2 - Fun with functions as objects
+-----------------------------------
+-There's nothing stopping us from attaching properties to functions
+-A couple of the more interesting things that can be done with this capability
+1. Storing function in a collections allow us to easily manage related functions
+-Memoization allow the function to remember previously computer values, thereby
+improving the performance of subsequent invocations
+
+3.2.1 - Storing functions
+-------------------------
+-See code (P. 41)
+
+3.2.2 - Self-memoizing function
+------------------------------
+-Memoization: the process of building a function that's capable of remembering its
+previously computed value
+
+-See code (P. 42)
+
+-Advantage of caching:
+1. End users enjoy performance benefits for function calls asking for a previously
+computed value
+2. It happens seamlessly and behind the scenes
+
+-Disadvantage of caching
+1. Sacrifice memory in favor of performance
+2. A function or method should do one thing and do it well
+3. It's difficult to load-test or measure the performance of an algorithm such
+as this one
+
+3.3 - Defining functions
+----------------------
+-JS provides a couple of ways to define functions, which can be divided into four
+groups
+1. Function declarations and function expressions
+2. Arrow functions (lambda functions)
+3. Function constructors (new Function('a', 'b', 'return a + b'))
+4. Generator functions (function* myGEn() {yield 1;})
+-Create functions that, unlike normal functions, can be exited and reentered later
+in application execution, while keeping the values of their variables across these
+re-entrances
+
+3.3.1 - Function declarations and function expressions
+----------------------------------------------------
+-The two most common ways of defining functions in JavaScript are by using function
+declarations and function expressions
+
+-Function declaration:
+function myFunction() {}
+
+-Function expression: functions that are always a part of another statement
+(for example as the right side of an assignment expression or as an argument to
+another function)
+
+-For function declarations, the function name is mandatory, whereas for function
+expressions it's completely optional
+
+
+-When we want to make a function call, we use an expression that evaluates
+to a function, followed by a pair of function call parentheses, which might
+contain arguments.
+-The expression can be an identifier that evaluates to a function
+-But it can be any expression that evaluates to a function (ex: IIFE)
+
+
+-Why do we need the parentheses around the function expression itself in IIFE?
+-Because the JS parser has to be able to easily differentiate between function
+declaration and function expressions
+
+3.3.2 - Arrow functions
+----------------------
+-In a lot of ways, arrow function are a simplification of function expressions
+
+3.4 - Arguments and function parameters
+---------------------------------------
+-A parameter is a variable that we list as part of a function definition
+-An argument is a value that we pass to the function when we invoke it
+
+3.4.1 - Rest parameters
+-----------------------
+-The rest parameters contains the remaining passed-in arguments
+-See code (P. 54)
+-Only the last function parameter can be a rest parameter. Trying to put ellipsis
+in front of any parameter that isn't last will not work (SyntaxError)
+
+
+3.4.2 - Default parameters
+---------------------------
+-In ES6, we can use a default value for our parameter
+-See code (P. 57)

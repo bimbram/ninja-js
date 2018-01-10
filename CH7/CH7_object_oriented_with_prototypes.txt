@@ -1,0 +1,125 @@
+Chapter 7 - Object orientation with prototypes
+=============================================
+
+-A prototype is an object to which the search for a particular property can be
+delegated to
+
+-A new addition to JS, the class keyword, doesn't exactly bring full-featured
+classes to JS but does enable us to easily mimic classes inheritance
+
+7.1 - Understanding prototypes
+------------------------------
+-Inheritance: extending the features of one object into another
+
+-The built in method Object.setPrototypeOf takes two object arguments and sets
+the second object as the prototype of the first
+
+-Every object can have prototype, forming a prototype chain
+
+7.2 - Object construction and prototypes
+-----------------------------------------
+-Every function, when created, gets a new prototype object.
+-The function's prototype object initially has only one property, constructor, that
+reference back to the function
+-When we use a function as a constructor, the constructed object prototype is set
+ to the function's prototype
+-Every object created with a function constructor will have access to the function
+constructor's prototype object
+
+7.2.1 - Instance properties
+----------------------------
+-If a properties can be found on the instance itself, the prototype is not even
+consulted
+
+-If we want to create a lot of objects using constructor function. It might be
+better to include methods on the constructor function's prototype object to save
+memories
+
+7.2.2 - Side effects of the dynamic nature of JavaScript
+--------------------------------------------------------
+-If we create an object (object1) from a constructor function, we know
+that the object's [[Prototype]] will be the construction function's prototype
+-If we then replace the construction function's prototype with a new object prototype
+our object1 will not refer to the newly created object prototype, but to the old
+constructor function's prototype
+-If we create a new object (object2) using the constructor function, we will the
+object2's [[Prototype]] link will refer to the new constructor function prototype
+
+
+7.2.3 - Object typing via constructor
+-------------------------------------
+-By using the constructor property, we can access the function that was used to
+create the object
+-instanceof identifies the constructor of an object
+-We can use a created object .constructor property to refer to the original
+constructor object and create a new object out of it
+-Although constructor property of an object can be changed, doing so does not
+have any immediate or obvious constructive purpose
+
+7.3 - Achieving inheritance
+---------------------------
+-Inheritance is a form of reuse in which new objects have access to properties of
+existing objects
+-The way to achieve inheritance is to use an instance of an object as the other
+object's prototype
+-subclass.prototype = new SuperClass();
+
+-Another way (which is strongly not recommended) is to use the subclass prototype
+directly to the SuperClass prototype. Because any change in the SubClass prototype
+will change the SuperClass prototype because it is the same object
+
+7.3.1 - The problem of overriding the constructor property
+----------------------------------------------------------
+
+-If we use the above technique to do inheritance, we will lost the constructor
+property of our SubClass. This is a problem, and we can fix it.
+
+-In JavaScript, every object property is described with property descriptor through
+which we can configure the following keys:
+1. configurable: If set to true, the property's descriptor can be changed and the
+property can be deleted. If set to false, we can do neither of these things
+2. enumerable: If set true, the property shows up during a for-in loop over
+the object's property
+3. value: specify the value f the property. Defaults to undefined
+4. writable: If set to true, the property value can be changed by using an assignment
+5. get: Defines the getter function, which will be called when we access the property.
+Can't be defined in conjunction with value and writable
+6. set: Defines the setter function, which will be called whenever an assignment is made
+to the property. Also can't be defined in conjunction with value and writable
+
+
+-When we want to fine-tune our property configuration, we can use the built-in
+Object.defineProperty method,
+-Object.defineProperty takes:
+1. an object on which the property will be defined
+2. the name of the property
+3. a property descriptor object
+
+-To fix our problem of losing a constructor property on our SubClass, we can use
+Object.define property by adding a constructor property in SubClass.prototype, with
+enumerable property of false. (P. 186)
+
+
+
+7.3.2 - The instanceof operator
+--------------------------------
+-The instance of operator checks only whether the prototype of the function on the
+right side is in the prototype chain of the left side
+
+
+7.4 - Using JavaScript "classes" in ES6
+--------------------------------------
+-Even though we can use the class keyword in JavaScript, the underlying implementation
+is still based on prototype inheritance
+
+7.4.1 - Using the class keyword
+-------------------------------
+-There's nothing especially new with ES6 classes. The code is more elegant, but
+the same concept are applied.
+
+-We can create static method in ES5 by adding a method to our constructor function
+
+
+7.4.2 - Implementing Inheritance
+--------------------------------
+-We can use the super() keyword to call the base class constructor (P. 194)
